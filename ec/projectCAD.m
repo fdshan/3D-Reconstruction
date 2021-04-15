@@ -12,16 +12,16 @@ x_generate = [x_generate(1,:)./x_generate(3,:); x_generate(2,:)./x_generate(3,:)
 figure
 imshow(image);
 hold on
-plot(x_generate(1,:), x_generate(2,:), 'o');
-plot(x(1,:), x(2,:),'.');
+plot(x_generate(1,:), x_generate(2,:), 'o', 'Color', 'g');
+plot(x(1,:), x(2,:), '.', 'Color', 'k');
 %% Draw the CAD model rotated by your estimated rotation R on screen, use trimesh
 rotated = cad.vertices*R';
 figure
-trimesh(cad.faces, rotated(:,1), rotated(:,2), rotated(:,3));
+trimesh(cad.faces, rotated(:,1), rotated(:,2), rotated(:,3), 'EdgeColor', 'b');
 %% Project the CAD's all vertices onto the image and draw the projected CAD model overlapping with the 2D image, use patch
 projected = P*[cad.vertices ones(size(cad.vertices,1), 1)]';
 projected = [projected(1,:)./projected(3,:); projected(2,:)./projected(3,:)]';
 figure
 imshow(image);
 hold on
-patch('Faces',cad.faces,'Vertices',projected,'FaceColor','red', 'EdgeColor', 'none', 'FaceAlpha',.3);
+patch('Faces',cad.faces, 'Vertices',projected, 'FaceColor','red', 'EdgeColor', 'none', 'FaceAlpha',.3);
